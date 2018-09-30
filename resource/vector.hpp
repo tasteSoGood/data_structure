@@ -1,3 +1,7 @@
+#ifndef NULL
+#define NULL 0
+#endif
+
 template <typename T>
 class vector {
 private:
@@ -10,95 +14,37 @@ public:
     enum {
         // 在C++的类构造中，如果需要使用到常量，建议使用enum枚举类型
         // 在其他程序构造的时候，常量尽量使用const关键字，尽量避免使用#define
-        DEFAULT_CAPACITY = 32; 
-    }
+        DEFAULT_CAPACITY = 32 
+    };
 
     // 构造函数
-    explicit vector(int size = 0) {
-        // explicit关键字指定该构造方法只能被明确地调用，不能作为类型转换操作符被隐含地使用
-        _size = size;
-        _items = new T[_capacity = DEFAULT_CAPACITY];
-    }
-    vector(const vector &new_vector) {
-        _items = NULL;
-        operator=(new_vector);
-    }
+    explicit vector(int = 0);
+    vector(const vector &);
 
     // 析构函数
-    ~vector() {
-        delete []_items;
-    }
+    ~vector();
 
     // 运算符重载
-    const vector &operator=(const vector &new_vector) {
-        if(this != &new_vector) {
-            delete[] _items;
-            _size = new_vector.size();
-            _items = new T[_capacity = new_vector.capacity()];
-            for(int i = 0; i < _size; k++)
-                _items[i] = new_vector[i];
-        }
-        return *this; // this是一个常量指针，用来指代类自身
-        // return this返回当前对象的地址
-        // return *this返回当前对象的克隆或者自身
-    }
-    T &operator[](int index) {
-        return _items[index];
-    }
-    const T &operator[](int index) const {
-        return _items[index];
-    }
+    const vector &operator=(const vector &);
+    T &operator[](int);
+    const T &operator[](int) const;
 
     // 迭代器
     typedef T* iterator;
     typedef const T* const_iterator;
 
-    iterator begin() {
-        return &_items[0];
-    }
-    const_iterator bagin() const {
-        return &_items[0];
-    }
-    iterator end() {
-        return &_items[_size - 1];
-    }
-    const_iterator end() const {
-        return &_items[_size - 1];
-    }
+    iterator begin();
+    const_iterator bagin() const;
+    iterator end();
+    const_iterator end() const;
 
     // 接口函数
-    void resize(int size) {
-        if(size > _capacity)
-            reserve(++(size << 1));
-        _size = size;
-    }
-    void reserve(int capacity) {
-        if(capacity < _size)
-            return;
-        T *old_vector = _items;
-        _items = new T[_capacity = capacity];
-        for(int i = 0; i < _size; i++)
-            _items[i] = old_vector[i];
-        delete[] old_vector;
-    }
-    bool empty() const {
-        return _size == 0;
-    }
-    int size() const {
-        return _size;
-    }
-    int capacity() const {
-        return _capacity;
-    }
-    void push_back(const T &x) {
-        if(_size == _capacity)
-            reserve(++(size << 1));
-        _item[_size++] = x;
-    }
-    void pop_back() {
-        _size--;
-    }
-    const T &back() const {
-        return _items[_size - 1];
-    }
+    void resize(int);
+    void reserve(int);
+    bool empty() const;
+    int size() const;
+    int capacity() const;
+    void push_back(const T &);
+    void pop_back();
+    const T &back() const;
 };

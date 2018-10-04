@@ -25,7 +25,6 @@ public:
     ~list() {
         clear();
     }
-
     
     // 迭代器
     typedef node* iterator;
@@ -128,6 +127,16 @@ public:
 
     const T& top() const {
         return _head.value;
+    }
+
+    bool find(T value) {
+        node *p = _head;
+        while(p) {
+            if(p->value == value)
+                return true;
+            p = p->next;
+        }
+        return false;
     }
 
     // 测试函数

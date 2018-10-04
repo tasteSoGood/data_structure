@@ -13,9 +13,7 @@ int main() {
     test.push_back(1);
     test.push_back(1);
     test.disp();
-    cout << test.size() << endl;
-    test.pop_back();
-    cout << test.size() << endl;
-    test.disp();
+    cout << test.find(1) << endl;
+    cout << test.find(10) << endl;
     return 0;
 }

@@ -3,7 +3,7 @@
  * 在这里并不适用，而且暂时没有找到更好的解决办法，既然无法分离，那么不如
  * 把所有的方法都写进类里面，这样能把注意力更多地集中在算法上
  */
-
+namespace hx {
 #ifndef NULL
 #define NULL 0
 #endif
@@ -24,7 +24,7 @@ public:
     };
 
     // 构造函数
-    explicit vector(int size = 0) {
+    vector(int size = 0) {
         // explicit关键字指定该构造方法只能被明确地调用，不能作为类型转换操作符被隐含地使用
         _size = size;
         _items = new T[_capacity = DEFAULT_CAPACITY];
@@ -32,6 +32,15 @@ public:
     vector(const vector &new_vector) {
         _items = NULL;
         operator=(new_vector);
+    }
+    vector(const T *array, int length) {
+        // 使用静态数组赋值
+        _capacity = length >= DEFAULT_CAPACITY ? _capacity * 2 + 1 : DEFAULT_CAPACITY;
+        _items = new T[_capacity];
+        _size = length;
+        for(int i = 0; i < length; i++) {
+            _items[i] = array[i];
+        }
     }
 
     // 析构函数
@@ -70,13 +79,18 @@ public:
         return &_items[0];
     }
     iterator end() {
-        return &_items[_size - 1];
+        return &_items[_size];
     }
     const_iterator end() const {
-        return &_items[_size - 1];
+        return &_items[_size];
     }
 
     // 接口函数
+    void clear() {
+        delete[] _items;
+        _items = new T[_capacity = DEFAULT_CAPACITY];
+        _size = 0;
+    }
     void resize(int size) {
         if(size > _capacity)
             reserve(size * 2 + 1);
@@ -112,3 +126,4 @@ public:
         return _items[_size - 1];
     }
 };
+} // hx namespace

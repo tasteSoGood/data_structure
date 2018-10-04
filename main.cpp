@@ -2,14 +2,20 @@
  * 本脚本用于算法的测试
  */
 #include <iostream>
-#include "resource/vector.hpp"
+#include "resource/list.hpp"
 using namespace std;
 
 int main() {
-    vector<int> test;
-    for(int i = 0; i < 100; i++) {
-        test.push_back(i);
-    }
-    cout << test[10] << endl;
+    int a[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    hx::list<int> test;
+    test.push_front(3);
+    test.push_front(5);
+    test.push_back(1);
+    test.push_back(1);
+    test.disp();
+    cout << test.size() << endl;
+    test.pop_back();
+    cout << test.size() << endl;
+    test.disp();
     return 0;
 }

@@ -6,7 +6,6 @@
 using namespace std;
 
 int main() {
-    int a[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     hx::list<int> test;
     test.push_front(3);
     test.push_front(5);

@@ -122,11 +122,11 @@ public:
     }
 
     const T& back() const {
-        return _tail.value;
+        return _tail->value;
     }
 
     const T& top() const {
-        return _head.value;
+        return _head->value;
     }
 
     bool find(T value) {
